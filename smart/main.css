@@ -1,0 +1,258 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family: "open-sans-public", sans-serif;
+}
+body button:focus {
+    outline: none !important;
+}
+.main-home {
+    width: 100%;
+    height: 100vh;
+    padding-top: 100px;
+    box-sizing: border-box;
+    background: radial-gradient(50% 50% at 50% 50%, #255f78 0%, #15202b 98.36%);
+}
+.main-home .parent-fon .back-fon {
+    width: 912.47px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.main-home .parent-fon .back-fon img {
+    width: 100%;
+}
+.main-home .switch {
+    width: 86px;
+    height: 54px;
+    display: flex;
+    background: rgba(23, 50, 68, 0.6);
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
+.main-home .switch button {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+}
+.main-home .switch button img {
+    width: 34px;
+}
+.main-home .switch button:nth-child(2) {
+    margin-left: 4px;
+}
+.main-footer {
+    width: 100%;
+    margin-top: 60px;
+    padding-left: 46px;
+    padding-right: 44px;
+    box-sizing: border-box;
+    display: flex;
+   justify-content: center;
+   justify-content: center;
+}
+.main-footer .left-part {
+    display: flex;
+}
+.main-footer .left-part .control {
+    display: flex;
+    background: #24475c;
+    border-radius: 12px;
+    width: 244px;
+    height: 84px;
+    margin-right: 18px;
+    padding: 18px 21px;
+    box-sizing: border-box;
+    justify-content: space-between;
+}
+.main-footer .left-part .control div h3 {
+    color: #f1f1f1;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 23px;
+    margin: 0;
+}
+.main-footer .left-part .control div span {
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 20px;
+    color: #f1f1f1;
+    margin-top: 0;
+}
+.main-footer .left-part .control div button {
+    background-color: transparent;
+    border: none;
+}
+.main-footer .right-part {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 22px;
+}
+.main-footer .right-part div {
+    background: rgba(42, 163, 239, 0.04);
+    border-radius: 16px;
+    width: 170px;
+    height: 84px;
+    margin-left: 18px;
+    box-sizing: border-box;
+    padding: 18px 19px;
+}
+.main-footer .right-part div h4 {
+    font-size: 13px;
+    line-height: 18px;
+    color: #f1f1f1;
+    font-weight: 400;
+    margin: 0;
+    padding-right: 5px;
+    text-align: right;
+}
+.main-footer .right-part div h2 {
+    font-size: 26px;
+    line-height: 35px;
+    margin: 0;
+    text-align: end;
+    color: #f1f1f1;
+    font-weight: normal;
+    margin-top: 5px;
+}
+
+.main-modal{
+    display: none;
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
+}
+.my-modal-content {
+    background: linear-gradient(0deg, #263643, #263643), #c4c4c4;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    width: 696px;
+    height: 456px;
+    position: absolute;
+    top: 72px;
+    left: 164px;
+}
+.my-modal-content .close-btn {
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+}
+.my-modal-content .control-header {
+    padding-top: 40px;
+    padding-bottom: 45px;
+}
+.my-modal-content .control-header .menus {
+    display: flex;
+    justify-content: center;
+}
+.my-modal-content .control-header .menus div {
+    width: 84px;
+    height: 68px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 2px solid #172634;
+    border-radius: 16px;
+    margin-right: 12px;
+}
+.my-modal-content .control-header .menus div h4 {
+    font-size: 8px;
+    line-height: 11px;
+    color: #f1f1f1;
+    margin: 0;
+    font-weight: normal;
+    margin-top: 4px;
+}
+.my-modal-content .control-header button {
+    background: #4fd8e0;
+    border-radius: 100px;
+    border: none;
+    width: 108px;
+    height: 28px;
+    display: block;
+    margin: 16px auto;
+    margin-bottom: 0;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: #172634;
+}
+.my-modal-content .control-body {
+    display: flex;
+    justify-content: center;
+}
+.my-modal-content .control-body button {
+    background-color: transparent;
+    border: none;
+}
+.my-modal-content .control-body .on-btn {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 64px;
+    justify-content: center;
+}
+.my-modal-content .control-body .on-btn h4 {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 14px;
+    color: #f1f1f1;
+    text-align: center;
+    margin: 0;
+    margin-top: 6px;
+}
+.my-modal-content .control-body .temp-control {
+    text-align: center;
+    display: flex;
+}
+.my-modal-content .control-body .temp-control button {
+    margin-left: 24px;
+    margin-right: 24px;
+    margin-top: -24px;
+}
+.my-modal-content .control-body .temp-control h1 {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 7px;
+    margin-top: -20px;
+    color: #fff;
+}
+.my-modal-content .control-body .temp-control h1 span {
+    font-size: 68px;
+    line-height: 93px;
+}
+.my-modal-content .control-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 26px;
+}
+.my-modal-content .control-footer div {
+    text-align: center;
+    margin-left: 52px;
+    margin-right: 52px;
+}
+.my-modal-content .control-footer div button {
+    background-color: transparent;
+    border: none;
+}
+.my-modal-content .control-footer div h4 {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 14px;
+    color: #f1f1f1;
+    margin: 0;
+}
+.ReactModal__Overlay, .ReactModal__Overlay--after-open {
+    background: rgba(17, 31, 39, 0.65) !important;
+}

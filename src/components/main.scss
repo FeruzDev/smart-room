@@ -1,0 +1,329 @@
+
+@font-face {
+  font-family: "open-sans-public";
+  src: url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500&display=swap");
+  font-display: swap;
+}
+
+
+
+body{
+  padding: 0;
+  margin: 0;
+  font-family: "open-sans-public", sans-serif;
+
+  button:focus{
+    outline: none !important;
+  }
+}
+
+.main-home{
+
+  width: 100%;
+  height: 100vh;
+  padding-top: 100px;
+
+
+  box-sizing: border-box;
+  background: radial-gradient(50% 50% at 50% 50%, #255F78 0%, #15202B 98.36%);
+  //background-size: 90% cover;
+  //background-repeat: no-repeat;
+
+  .parent-fon{
+    .back-fon{
+      width: 912.47px;
+      margin-left: auto;
+      margin-right: auto;
+
+      img{
+        width: 100%;
+      }
+    }
+  }
+
+
+  .switch{
+    width: 86px;
+    height: 54px;
+    //display: flex;
+    background: rgba(23, 50, 68, 0.6);
+    border-radius: 8px;
+    //justify-content: center;
+    align-items: center;
+    position: absolute;
+    padding: 5px;
+    padding-bottom: 10px;
+    //box-sizing: border-box;
+
+    button{
+      width: 34px;
+      height: 34px;
+      padding: 0;
+
+      background-color: transparent;
+      border: none;
+      img{
+        width: 34px;
+      }
+    }
+    .temp-room{
+      font-weight: 600;
+      font-size: 10px;
+      line-height: 14px;
+      /* identical to box height */
+
+      text-align: right;
+
+      color: #FFA370;
+    }
+    button:nth-child(2){
+      margin-left: 15px;
+    }
+    p{
+      display: block;
+      color: #FFFFFF;
+      margin: 0;
+      font-size: 11px;
+      text-align: left;
+    }
+  }
+}
+.main-footer{
+  width: 100%;
+  margin-top: 60px;
+  padding-left: 46px;
+  padding-right: 44px;
+  box-sizing: border-box;
+  display: flex;
+  .left-part{
+    display: flex;
+    .control{
+      display: flex;
+      background: #24475C;
+      border-radius: 12px;
+      width: 244px;
+      height: 84px;
+      margin-right: 18px;
+      padding: 18px 21px;
+      box-sizing: border-box;
+      justify-content: space-between;
+      div{
+        h3{
+          color: #F1F1F1;
+          font-weight: 600;
+          font-size: 17px;
+          line-height: 23px;
+
+          margin: 0;
+        }
+        span{
+          font-weight: normal;
+          font-size: 15px;
+          line-height: 20px;
+          color: #F1F1F1;
+          margin-top: 0;
+        }
+        button{
+          background-color: transparent;
+          border: none;
+          img{
+            //width: 52px;
+
+          }
+        }
+      }
+    }
+  }
+  .right-part{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 22px;
+    div{
+      background: rgba(42, 163, 239, 0.04);
+      border-radius: 16px;
+      width: 170px;
+      height: 84px;
+      margin-left: 18px;
+      box-sizing: border-box;
+      padding: 18px 19px;
+      h4{
+        font-size: 13px;
+        line-height: 18px;
+        color: #F1F1F1;
+        font-weight: 400;
+        margin: 0;
+        padding-right: 5px;
+        text-align: right;
+      }
+      h2{
+        font-size: 26px;
+        line-height: 35px;
+        margin: 0;
+        text-align: end;
+        color: #F1F1F1;
+        font-weight: normal;
+        margin-top: 5px;
+      }
+    }
+  }
+}
+
+.main-modal{
+
+}
+.my-modal{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .my-modal-content{
+    background: linear-gradient(0deg, #263643, #263643), #C4C4C4;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    width: 696px;
+    height: 456px;
+    position: absolute;
+    top: 72px;
+    left: 164px;
+    .close-btn{
+      border: none;
+      background-color: transparent;
+      position: absolute;
+      top: 14px;
+      right: 14px;
+    }
+    .control-header{
+      padding-top: 40px;
+      padding-bottom: 45px;
+      .menus{
+        display: flex;
+        justify-content: center;
+        div{
+          width: 84px;
+          height: 68px;
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          border: 2px solid #172634;
+          border-radius: 16px;
+          margin-right: 12px;
+          h4{
+            font-size: 8px;
+            line-height: 11px;
+            color: #F1F1F1;
+            margin: 0;
+            font-weight: normal;
+            margin-top: 4px;
+          }
+        }
+      }
+      button{
+        background: #4FD8E0;
+        border-radius: 100px;
+        border: none;
+        width: 108px;
+        height: 28px;
+        display: block;
+        margin: 16px auto;
+        margin-bottom: 0;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 16px;
+        color: #172634;
+        &:focus{
+          background: #76F7FF;
+          box-shadow: 0px 0px 8px rgba(79, 216, 224, 0.4);
+        }
+      }
+    }
+    .control-body{
+      display: flex;
+      justify-content: center;
+      button{
+        background-color: transparent;
+        border: none;
+      }
+      .on-btn{
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        left: 64px;
+        justify-content: center;
+        .power-on-off{
+        }
+          h4{
+            font-style: normal;
+            font-weight: normal;
+            font-size: 10px;
+            line-height: 14px;
+            color: #F1F1F1;
+            text-align: center;
+            margin: 0;
+            margin-top: 6px;
+          }
+      }
+
+      .temp-control{
+        text-align: center;
+        display: flex;
+        button{
+          margin-left: 24px;
+          margin-right: 24px;
+          margin-top: -24px;
+
+          &:focus{
+            svg{
+              path{
+                fill: #4FD8E0 !important;
+              }
+            }
+          }
+
+        }
+        h1{
+          font-style: normal;
+          font-weight: normal;
+          font-size: 12px;
+          line-height: 7px;
+          margin-top: -20px;
+
+          color: #FFFFFF;
+          span{
+            font-size: 68px;
+            line-height: 93px;
+          }
+        }
+      }
+    }
+    .control-footer{
+      display: flex;
+      justify-content: center;
+      margin-top: 26px;
+      div{
+        text-align: center;
+        margin-left: 52px;
+        margin-right: 52px;
+        button{
+          background-color: transparent;
+          border: none
+        }
+        h4{
+          font-style: normal;
+          font-weight: normal;
+          font-size: 10px;
+          line-height: 14px;
+          color: #F1F1F1;
+          margin: 0;
+        }
+      }
+
+    }
+  }
+}
+
+.ReactModal__Overlay, .ReactModal__Overlay--after-open{
+  background: rgba(17, 31, 39, 0.65) !important;
+}
+

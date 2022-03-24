@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+ <div class="main-home">
+
+    <div class="parent-fon">
+        <div class="back-fon">
+            <img src="img/SchemeOffice.png" alt=""/>
+        </div>
+    </div>
+     <div class="main-modal">
+        <div class="my-modal-content">
+            <button  class="close-btn"><img src="img/closebtn.svg" alt=""/></button>
+            <div class="control-header">
+                <div class="menus">
+                    <div>
+                        <img src="img/head1.svg" alt=""/>
+                        <h4>Осушение</h4>
+                    </div>
+                    <div>
+                        <img src="img/head4.svg" alt=""/>
+                        <h4>Охлаждение</h4>
+                    </div>
+                    <div>
+                        <img src="img/head5a.svg" alt=""/>
+                        <h4>Авто</h4>
+                    </div>
+                    <div>
+                        <img src="img/head3.svg" alt=""/>
+                        <h4>Обогрев</h4>
+                    </div>
+                    <div>
+                        <img src="img/head2.svg" alt=""/>
+                        <h4>Вентиляция</h4>
+                    </div>
+                </div>
+                <button>Режим</button>
+            </div>
+            <div class="control-body">
+                <div class="on-btn">
+
+                    <button class="power-on-off"><img src="img/Poweron.png" alt=""/></button>
+                    <h4>Выкл.</h4>
+                </div>
+                <div class="temp-control">
+                    <button><img src="img/Minus12.svg" alt=""/></button>
+                    <h1><span>32°</span> <br/> Температура C°</h1>
+                    <button><img src="img/Plus12.svg" alt=""/></button>
+                </div>
+            </div>
+            <div class="control-footer">
+                <div>
+                    <button><img src="img/cf1.png" alt=""/></button>
+                    <h4>Качания</h4>
+                </div>
+                <div>
+                    <button><img src="img/cf2a.png" alt=""/></button>
+                    <h4>Направление</h4>
+                </div>
+                <div>
+                    <button><img src="img/cf3a.png" alt=""/></button>
+                    <h4>Скорость</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+     <div class="main-footer">
+
+         <div class="left-part">
+             <div class="control">
+                 <div>
+                     <h3>Turn all lights</h3>
+                     <span>On</span>
+                 </div>
+                 <div>
+                     <button > <img src="img/off.png"/></button>
+                 </div>
+             </div>
+             <div class="control">
+                 <div>
+                     <h3>Turn all A/C</h3>
+                     <span>Off</span>
+                 </div>
+                 <div>
+                     <button> <img src="img/on.png"/> </button>
+
+                 </div>
+             </div>
+         </div>
+         <div class="right-part">
+             <div>
+                 <h4>Outside temperature</h4>
+                 <h2>+32° <img src="img/hotTemp.svg" alt=""/></h2>
+             </div>
+             <div>
+                 <h4>In office temperature</h4>
+                 <h2>+21° <img src="img/coldTemp.svg" alt=""/></h2>
+             </div>
+         </div>
+     </div>
+     <div class="container"></div>
+</div>
+
+<script>
+
+    getRooms();
+    // getLamps();
+    let container = document.querySelector('.container');
+
+    let rooms=[]
+    let lamps=[]
+    let i
+    let lampId=[]
+    function turnLamp(id){
+        fetch("http://10.69.69.188/ajax2.php?mod=updatelamp&lampid=" + id)
+            .then(response2 => response2.json())
+            .then(data2 =>{
+                getRooms()
+            })
+        console.log(id)
+    }
+     async  function getRooms(){
+        let html = '';
+        fetch("http://10.69.69.188/api.php?mod=rooms")
+            .then(response => response.json())
+            .then(data =>{
+                    rooms=data
+                    fetch("http://10.69.69.188/ajax2.php?mod=lamps")
+                    .then(response2 => response2.json())
+                    .then(data2 =>{
+                            lamps=data2
+                            data.map(room =>{
+                                console.log(lampId)
+                                let htmlSegment = `
+                                 <div class="switch" style="left: ${room.left}px !important;  top: ${room.top}px !important;" >
+                                      <button onclick="turnLamp( ${lamps.filter(item => item.room_id === room.id ? item.room_id : "")[0].room_id})">
+                                        ${lamps.filter(item => item.room_id === room.id ? item.room_id : "")[0].status  === 1 ?
+                                '<img src="img/Lighton.svg"  alt="ON"/>'
+                                    :
+                                  '<img src="img/Lightoff.svg"  alt="ON"/>'
+                                }
+                                     </button>
+                                     <button >
+                                         <img src="img/AirCondoff.svg" alt=""/>
+                                     </button>
+                                 </div> `;
+                            html += htmlSegment;
+                            container.innerHTML = html
+                        })
+                    })
+            } )
+            .catch(error => {
+                // handle the error
+            });
+
+       }
+    setTimeout(getRooms, 5000);
+</script>
+</body>
+</html>
