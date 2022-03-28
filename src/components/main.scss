@@ -5,6 +5,12 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "ShareTechMono";
+  src: url("../assets/ShareTechMono-Regular.ttf");
+  font-display: swap;
+}
+
 
 
 body{
@@ -41,6 +47,40 @@ body{
     }
   }
 
+  .date{
+    position: absolute;
+    top: 34px;
+    left: 43.5%;
+    z-index: 999;
+    h2{
+      color: #F1F1F1;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 48px;
+      line-height: 18px;
+      text-shadow: 0px 0px 16px #00A5DB;
+      font-family: "ShareTechMono", sans-serif ;
+
+      margin: 0;
+
+    }
+  }
+
+  .date-with-month{
+    //font-size: 32px;
+    margin-left: 30px;
+    text-transform: capitalize;
+    position: absolute;
+    top: 27px;
+    right: 35px;
+    color: #F1F1F1;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 18px;
+    text-shadow: 0px 0px 16px #00A5DB;
+    font-family: "ShareTechMono", sans-serif ;
+  }
 
   .switch{
     width: 86px;
@@ -193,13 +233,13 @@ body{
     }
     .control-header{
       padding-top: 40px;
-      padding-bottom: 45px;
+      padding-bottom: 35px;
       .menus{
         display: flex;
         justify-content: center;
         div{
-          width: 84px;
-          height: 68px;
+          width: 94px;
+          height: 78px;
           box-sizing: border-box;
           display: flex;
           align-items: center;
@@ -209,13 +249,17 @@ body{
           border-radius: 16px;
           margin-right: 12px;
           h4{
-            font-size: 8px;
+            font-size: 11px;
             line-height: 11px;
             color: #F1F1F1;
             margin: 0;
             font-weight: normal;
-            margin-top: 4px;
+            margin-top: 6px;
           }
+        }
+        .active{
+          border: 2px solid #4FD8E0;
+
         }
       }
       button{
@@ -245,25 +289,7 @@ body{
         background-color: transparent;
         border: none;
       }
-      .on-btn{
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        left: 64px;
-        justify-content: center;
-        .power-on-off{
-        }
-          h4{
-            font-style: normal;
-            font-weight: normal;
-            font-size: 10px;
-            line-height: 14px;
-            color: #F1F1F1;
-            text-align: center;
-            margin: 0;
-            margin-top: 6px;
-          }
-      }
+
 
       .temp-control{
         text-align: center;
@@ -273,9 +299,11 @@ body{
           margin-right: 24px;
           margin-top: -24px;
 
+
           &:focus{
             svg{
               path{
+
                 fill: #4FD8E0 !important;
               }
             }
@@ -285,7 +313,7 @@ body{
         h1{
           font-style: normal;
           font-weight: normal;
-          font-size: 12px;
+          font-size: 14px;
           line-height: 7px;
           margin-top: -20px;
 
@@ -299,23 +327,29 @@ body{
     }
     .control-footer{
       display: flex;
-      justify-content: center;
-      margin-top: 26px;
+      justify-content: space-between;
+      width: 500px;
+      margin: 26px auto ;
+
       div{
         text-align: center;
-        margin-left: 52px;
-        margin-right: 52px;
+        //margin-left: 52px;
+        //margin-right: 52px;
         button{
           background-color: transparent;
-          border: none
+          border: none;
+          img{
+            width: 70px;
+          }
         }
         h4{
           font-style: normal;
           font-weight: normal;
-          font-size: 10px;
+          font-size: 14px;
           line-height: 14px;
           color: #F1F1F1;
           margin: 0;
+          margin-top: 8px;
         }
       }
 

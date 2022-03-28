@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import MainFooter from "./MainFooter";
+
 import {API_PATH} from "../tool/const";
 import axios from "axios";
 
@@ -7,12 +7,19 @@ const Main = () => {
     const [rooms, setRooms] = useState([])
     const [lamps, setLamps] = useState([])
     const [conds, setConds] = useState([])
-    const [show, setShow] = useState(false)
     const [event, setEvent] = useState(false)
     const [light, setLight] = useState(false)
-    const [cond, setCond] = useState(false)
+    const [cond, setCond] = useState(true)
+    const [show, setShow] = useState(false);
     const [date, setDate] = useState("")
     const [condState, setCondState] = useState({})
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const [lights, setLights] =useState(false)
+    const [allLights, setAllLights] =useState(false)
+    const [temps, setTemps] = useState([])
+    const [status, setStatus] = useState([])
+    let inter;
+    const month = ["янв", "фев", "мар", "апр", "май", "июн", "июл", "авг", "сен", "окт", "ноя", "дек",]
     const getAllLamps = () => {
         axios.get(API_PATH + "api.php?mod=getrooms")
             .then(res => {
@@ -24,9 +31,10 @@ const Main = () => {
         setCond(!cond)
         openModal()
     }
-    const [modalIsOpen, setIsOpen] = useState(false);
     function openModal(condid) {
+        stop()
         setIsOpen(true);
+        setShow(true);
         axios.get(API_PATH + "api.php?mod=getcond&condid=" + condid)
             .then(res => {
                 setCondState(res.data)
@@ -54,11 +62,14 @@ const Main = () => {
     const condOnOff = (condid) => {
         openModal(condid)
         setEvent(!event)
+        setShow(true)
         axios.get(API_PATH + "api.php?mod=updatecond&condid=" + condid  + "&key=onoff")
             .then(res => {
                 axios.get(API_PATH + "api.php?mod=getcond&condid=" + condid)
                     .then(res => {
                         openModal(res.data.condid)
+                        setEvent(!event)
+
                     })
             })
     }
@@ -71,7 +82,6 @@ const Main = () => {
                     })
             })
     }
-
     const changeSwing = (condid) => {
         axios.get(API_PATH + "api.php?mod=updatecond&condid=" + condid  + "&key=swingud")
             .then(res => {
@@ -99,8 +109,9 @@ const Main = () => {
                     })
             })
     }
-    useEffect(() => {
-      getAllLamps()
+
+    const getAll = () => {
+        getAllLamps()
         axios.get(API_PATH + "api.php?mod=getalllamp")
             .then(res => {
                 setLamps(res.data)
@@ -116,7 +127,45 @@ const Main = () => {
                 setDate(res.data)
                 console.log(res.data)
             })
+        axios.get(API_PATH + "api.php?mod=getstatusall")
+            .then(res => {
+                setStatus(res.data)
+            })
+    }
+    const getStatus = () => {
+        axios.get(API_PATH + "api.php?mod=getstatusall")
+            .then(res => {
+                setStatus(res.data)
+            })
+    }
+    const turnOnLigths =()=>{
+        axios.get(API_PATH + "api.php?mod=updatealllamp")
+            .then(res => {setLights(true)
+                getAll()
+                getStatus()
+                setAllLights(true)
+            })
+    }
+    const turnAc =()=>{
+        axios.get(API_PATH + "api.php?mod=updateallcond")
+            .then(res => {setLights(true)
+                // window.location.reload()
+                setAllLights(true)
+                getAll()
+                getStatus()
+             })
+    }
+    useEffect(() => {
+        getAll()
+        axios.get(API_PATH + "api.php?mod=gettemp")
+            .then(res => {
+                setTemps(res.data)
+            })
+
     }, [event ])
+    const stop = () => {
+        clearInterval(inter)
+    }
     return (
         <div className="main-home">
             <div className="parent-fon">
@@ -124,6 +173,16 @@ const Main = () => {
                     <img src="/img/SchemeOffice.png" alt=""/>
                 </div>
             </div>
+            <div className="date">
+
+                <h2>
+                   {date?.date?.slice(11,13)}:{date?.date?.slice(14,16)}
+
+                </h2>
+            </div>
+            <span className="date-with-month">
+                   {date?.date?.slice(8,10)} {month[parseInt(date?.date?.slice(5,7))-1]} {date?.date?.slice(0,4)}
+                </span>
             {
                 rooms?.map(item => (
                     <div className="switch" style={{left: item?.pleft + "px", top: item?.ptop + "px"}}>
@@ -147,7 +206,6 @@ const Main = () => {
                                     <img src="/img/AirCondoff.svg" alt=""/>
                                             :
                                     <img src="/img/air-cond2.gif" alt=""/>}
-
                                     <span className="temp-room">+{item3?.temp}</span>
                                 </button>
                             ))
@@ -156,12 +214,9 @@ const Main = () => {
                     </div>
                 ))
             }
-            <MainFooter/>
             {
                 modalIsOpen ?
                     <div
-                        // isOpen={modalIsOpen}
-                        // onRequestClose={closeModal}
                         className="my-modal"
                     >
                         <div className="my-modal-content">
@@ -172,7 +227,7 @@ const Main = () => {
                                     {
                                         condState ? condState.scoolheat === "1" ?
                                                <>
-                                                   <div>
+                                                   <div className="active">
                                                        <img src="/img/f2a.png" alt=""/>
                                                        <h4>Охлаждение</h4>
                                                    </div>
@@ -187,7 +242,7 @@ const Main = () => {
                                                         <img src="/img/f2.png" alt=""/>
                                                         <h4>Охлаждение</h4>
                                                     </div>
-                                                    <div>
+                                                    <div className="active">
                                                         <img src="/img/f1a.png" alt=""/>
                                                         <h4>Обогрев</h4>
                                                     </div>
@@ -199,47 +254,47 @@ const Main = () => {
                                 <button className="rejim" onClick={() => changeTemp(condState?.condid)}>Режим</button>
                             </div>
                             <div className="control-body">
-                                <div className="on-btn">
 
-                                    <button className="power-on-off" onClick={() => condOnOff(condState?.condid)}>
-                                        {
-                                            condState ? condState.sonoff == "1" ?
-                                                <img src="img/Poweron.png" alt=""/>
-                                                :
-                                                <img src="img/Poweroff.png" alt=""/>
-                                                :
-                                                ""
-                                        }
-                                    </button>
-                                    {
-                                        condState ? condState.sonoff === "0" ?
-                                                <h4>Вкл</h4>
-                                                :
-                                                <h4>Выкл</h4>
-                                            :
-                                            ""
-                                    }
-                                </div>
                                 <div className="temp-control">
                                     <button onClick={() => minus(condState?.condid)}>
-                                        <svg width="24" height="24" viewBox="0 0 24 24"   xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M12 0C5.37239 0 0 5.37239 0 12C0 18.6276 5.37239 24 12 24C18.6276 24 24 18.6276 24 12C24 5.37239 18.6276 0 12 0ZM12 22.8C6.03558 22.8 1.2 17.9648 1.2 12C1.2 6.0352 6.03558 1.2 12 1.2C17.9644 1.2 22.8 6.03558 22.8 12C22.8 17.9644 17.9644 22.8 12 22.8Z" fill="white"/>
-                                            <path d="M18 11.4H6.00002C5.66881 11.4 5.40002 11.6688 5.40002 12C5.40002 12.3312 5.66881 12.6 6.00002 12.6H18C18.3312 12.6 18.6 12.3312 18.6 12C18.6 11.6688 18.3312 11.4 18 11.4Z" fill="white"/>
+                                        <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M21 0C9.40168 0 0 9.40168 0 21C0 32.5983 9.40168 42 21 42C32.5983 42 42 32.5983 42 21C42 9.40168 32.5983 0 21 0ZM21 39.9C10.5623 39.9 2.1 31.4384 2.1 21C2.1 10.5616 10.5623 2.1 21 2.1C31.4377 2.1 39.9 10.5623 39.9 21C39.9 31.4377 31.4377 39.9 21 39.9Z" fill="white"/>
+                                            <path d="M31.5001 19.9501H10.5001C9.92044 19.9501 9.45007 20.4204 9.45007 21.0001C9.45007 21.5797 9.92044 22.0501 10.5001 22.0501H31.5001C32.0797 22.0501 32.5501 21.5797 32.5501 21.0001C32.5501 20.4204 32.0797 19.9501 31.5001 19.9501Z" fill="white"/>
                                         </svg>
+
                                     </button>
                                     <h1><span>{condState.temp}°</span> <br/> Температура C°</h1>
                                     <button onClick={() => plus(condState?.condid)}>
-                                        <svg width="25" height="24" viewBox="0 0 25 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M12.0667 0C5.45003 0 0.0666504 5.38292 0.0666504 12C0.0666504 18.6171 5.45003 24 12.0667 24C18.6833 24 24.0667 18.6171 24.0667 12C24.0667 5.38292 18.6833 0 12.0667 0ZM12.0667 23.0769C5.95911 23.0769 0.989727 18.1075 0.989727 12C0.989727 5.89246 5.95911 0.923077 12.0667 0.923077C18.1742 0.923077 23.1436 5.89246 23.1436 12C23.1436 18.1075 18.1742 23.0769 12.0667 23.0769Z" fill="white"/>
-                                            <path d="M17.8361 11.5386H12.5284V6.46166C12.5284 6.20643 12.3216 6.00012 12.0668 6.00012C11.8121 6.00012 11.6053 6.20643 11.6053 6.46166V11.5386H6.2976C6.04283 11.5386 5.83606 11.7449 5.83606 12.0001C5.83606 12.2554 6.04283 12.4617 6.2976 12.4617H11.6053V18.0001C11.6053 18.2554 11.8121 18.4617 12.0668 18.4617C12.3216 18.4617 12.5284 18.2554 12.5284 18.0001V12.4617H17.8361C18.0908 12.4617 18.2976 12.2554 18.2976 12.0001C18.2976 11.7449 18.0908 11.5386 17.8361 11.5386Z" fill="white"/>
+                                        <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M21 0C9.42092 0 0 9.42012 0 21C0 32.5799 9.42092 42 21 42C32.5791 42 42 32.5799 42 21C42 9.42012 32.5791 0 21 0ZM21 40.3846C10.3118 40.3846 1.61538 31.6882 1.61538 21C1.61538 10.3118 10.3118 1.61538 21 1.61538C31.6882 1.61538 40.3846 10.3118 40.3846 21C40.3846 31.6882 31.6882 40.3846 21 40.3846Z" fill="white"/>
+                                            <path d="M31.0961 20.1923H21.8077V11.3077C21.8077 10.861 21.4458 10.5 21 10.5C20.5541 10.5 20.1923 10.861 20.1923 11.3077V20.1923H10.9038C10.458 20.1923 10.0961 20.5533 10.0961 21C10.0961 21.4467 10.458 21.8077 10.9038 21.8077H20.1923V31.5C20.1923 31.9467 20.5541 32.3077 21 32.3077C21.4458 32.3077 21.8077 31.9467 21.8077 31.5V21.8077H31.0961C31.542 21.8077 31.9038 21.4467 31.9038 21C31.9038 20.5533 31.542 20.1923 31.0961 20.1923Z" fill="white"/>
                                         </svg>
+
                                     </button>
                                 </div>
                             </div>
                             <div className="control-footer">
                                 <div>
-                                    <button><img src="/img/cf1.png" alt=""/></button>
-                                    <h4>Качания</h4>
+                                    <div className="on-btn">
+                                        <button className="power-on-off" onClick={() => condOnOff(condState?.condid)}>
+                                            {
+                                                condState ? condState.sonoff == "1" ?
+                                                        <img src="img/Poweron.png" alt=""/>
+                                                        :
+                                                        <img src="img/Poweroff.png" alt=""/>
+                                                    :
+                                                    ""
+                                            }
+                                        </button>
+                                        {
+                                            condState ? condState.sonoff === "0" ?
+                                                    <h4>Вкл</h4>
+                                                    :
+                                                    <h4>Выкл</h4>
+                                                :
+                                                ""
+                                        }
+                                    </div>
                                 </div>
                                 <div>
                                     <button onClick={() => changeSwing(condState?.condid)}>
@@ -283,6 +338,40 @@ const Main = () => {
                     :
                     ""
             }
+            <div className="main-footer">
+
+                <div className="left-part">
+                    <div className="control">
+                        <div>
+                            <h3>Turn all lights</h3>
+                            <span>On</span>
+                        </div>
+                        <div>
+                            <button onClick={turnOnLigths }>{status?.lamps === 1 ? <img src="/img/on.png"/> : <img src="/img/off.png"/>}</button>
+                        </div>
+                    </div>
+                    <div className="control">
+                        <div>
+                            <h3>Turn all A/C</h3>
+                            <span>Off</span>
+                        </div>
+                        <div>
+                            <button onClick={turnAc}>{status?.conds === 1 ? <img src="/img/on.png"/> : <img src="/img/off.png"/>}</button>
+
+                        </div>
+                    </div>
+                </div>
+                <div className="right-part">
+                    <div>
+                        <h4>Outside temperature</h4>
+                        <h2>+{temps.outtemp}° <img src="/img/hotTemp.svg" alt=""/></h2>
+                    </div>
+                    <div>
+                        <h4>In office temperature</h4>
+                        <h2>+{temps.intemp}° <img src="/img/coldTemp.svg" alt=""/></h2>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
